@@ -19,11 +19,11 @@ export const moveCounterClockwise = () => {
  }
 
 export const selectAnswer = id => {
-
+  return { type: SET_SELECTED_ANSWER, payload: id }
  }
 
 export const setMessage = message => {
-
+  return { type: SET_INFO_MESSAGE, payload: message}
  }
 
 export const setQuiz = quiz => {
@@ -41,11 +41,10 @@ export const resetForm = () => {
 // ❗ Async action creators
 export function fetchQuiz() {
   return(dispatch => {
-    dispatch(setQuiz())
+    dispatch(setQuiz(null))
     axios.get("http://localhost:9000/api/quiz/next")
       .then(res => {
-        console.log(res);
-        setQuiz(res);
+        dispatch(setQuiz(res.data));
       })
       .catch(err => {
         console.log(err);
@@ -56,12 +55,16 @@ export function fetchQuiz() {
     // - Dispatch an action to send the obtained quiz to its state
   
 }
-export function postAnswer() {
+export function postAnswer(quizId, answerId) {
   return(dispatch => {
-    axios.post('http://localhost:9000/api/quiz/answer', {})
+    axios.post('http://localhost:9000/api/quiz/answer', {
+      "quiz_id": quizId,
+      "answer_id": answerId
+    })
       .then(res => {
-        console.log(res);
-        resetForm();
+        dispatch(selectAnswer(null));
+        dispatch(setMessage(res.data.message));
+        
       })
       .catch(err => {
         console.log(err);
@@ -73,15 +76,20 @@ export function postAnswer() {
     // - Dispatch the fetching of the next quiz
   
 }
-export function postQuiz() {
+export function postQuiz(newQuestion, newTrueAnswer, newFalseAnswer) {
   return(dispatch => {
-    console.log('Quiz posted');
-    axios.post('http://localhost:9000/api/quiz/new', {})
+    axios.post('http://localhost:9000/api/quiz/new', {
+      "question_text": newQuestion,
+      "true_answer_text": newTrueAnswer,
+      "false_answer_text": newFalseAnswer
+    })
       .then(res => {
-
+        dispatch(setMessage(`Congrats: "${newQuestion}" is a great question!`));
+        dispatch(resetForm());
+        console.log(res);
       })
       .catch(err => {
-
+        console.log(err)
       })
   })
     // On successful POST:

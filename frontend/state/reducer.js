@@ -38,9 +38,7 @@ function wheel(state = initialState.wheel, action) {
 function quiz(state = initialState.quiz, action) {
   switch(action.type){
     case(SET_QUIZ_INTO_STATE):
-      return({
-        state: action.payload
-      })
+      return(state = action.payload)
     
     default:
       return state;
@@ -50,7 +48,7 @@ function quiz(state = initialState.quiz, action) {
 function selectedAnswer(state = initialState.selectedAnswer, action) {
   switch(action.type){
     case(SET_SELECTED_ANSWER):
-      return;
+      return(state = action.payload)
     
     
     default:
