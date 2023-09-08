@@ -64,8 +64,8 @@ const WhatIsPromise = 'What is a promise'
 const AValue = 'A value representing a future result'
 const WhatIsModule = 'An ES6 module is a'
 const AFile = 'JS file'
-const ThatIsCorrect = 'That was the correct answer'
-const ThatIsAShame = 'That was the incorrect answer'
+const ThatIsCorrect = 'Nice job! That was the correct answer'
+const ThatIsAShame = 'What a shame! That was the incorrect answer'
 
 describe('Advanced State Sprint Challenge Submission', () => {
   describe('[WHEEL SCREEN], Review how to write actions and action creators to describe state changes and how to write reducers to respond to actions and update state. Also review how to connect components to redux.', () => {
@@ -238,12 +238,12 @@ describe('Advanced State Sprint Challenge Submission', () => {
       fireEvent.click(answerA.querySelector('button'))
       fireEvent.click(submitAnswerBtn())
       await screen.findByText(WhatIsPromise, queryOptions, waitForOptions)
-      screen.getByText(ThatIsCorrect, queryOptions)
+      screen.findByText(ThatIsCorrect, queryOptions)
       answerA = screen.queryByText(AValue, queryOptions)
       fireEvent.click(answerA.querySelector('button'))
       fireEvent.click(submitAnswerBtn())
       await screen.findByText(WhatIsModule, queryOptions, waitForOptions)
-      screen.getByText(ThatIsCorrect, queryOptions)
+      screen.findByText(ThatIsCorrect, queryOptions)
       answerA = screen.queryByText(AFile, queryOptions)
       fireEvent.click(answerA.querySelector('button'))
       fireEvent.click(submitAnswerBtn())
