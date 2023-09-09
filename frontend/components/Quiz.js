@@ -11,12 +11,11 @@ export function Quiz(props) {
   const handleSubmit = e => {
     e.preventDefault();
     postAnswer(quiz.quiz_id, selectedAnswer);
-    fetchQuiz();
   }
 
   const handleSelection = e => {
-    selectAnswer(e.target.id);
     setMessage('');
+    selectAnswer(e.target.id);
   }
 
 

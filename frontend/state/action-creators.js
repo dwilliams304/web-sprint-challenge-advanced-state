@@ -62,12 +62,14 @@ export function postAnswer(quizId, answerId) {
       "answer_id": answerId
     })
       .then(res => {
-        dispatch(selectAnswer(null));
         dispatch(setMessage(res.data.message));
-        
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() =>{
+        dispatch(selectAnswer(null));
+        dispatch(fetchQuiz());
       })
   })
     // On successful POST:
